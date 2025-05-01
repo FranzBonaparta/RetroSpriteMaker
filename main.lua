@@ -126,6 +126,9 @@ local function saveDraw()
     love.system.setClipboardText(saveString) -- Copy to clipboard
     print("Map copiée !")
 end
+local function isWhite(color)
+    return color[1] == 255 and color[2] == 255 and color[3] == 255
+end
 --to export your image at PNG format
 local function exportPng()
     local canvas = love.graphics.newCanvas(
@@ -136,11 +139,14 @@ local function exportPng()
     love.graphics.clear(0, 0, 0, 0)-- alpha 0 = transparent
     love.graphics.setBlendMode("alpha", "premultiplied") -- important
 
-    for _, line in ipairs(tiles) do
-        for _, tile in ipairs(line) do
-            tile:setBorderColor(0,0,0)
-            if tile.color[1]~=255 and tile.color[2]~=255 and tile.color[3]~=255 then
-            tile:draw()
+    for rowIndex, row in ipairs(tiles) do
+        for colIndex, tile in ipairs(row) do
+            if not isWhite(tile.color) then
+                local r, g, b = tile.color[1] / 255, tile.color[2] / 255, tile.color[3] / 255
+                local x = (colIndex - 1) * scale
+                local y = (rowIndex - 1) * scale
+                love.graphics.setColor(r, g, b)
+                love.graphics.rectangle("fill", x, y, scale, scale)
             end
         end
     end
