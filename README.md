@@ -10,6 +10,7 @@ License: [GNU GPL v3](https://www.gnu.org/licenses/gpl-3.0.html)
 **RetroSpriteMaker** is a tool that will help you draw sprites the retro way.
 Draw your sprite then copy the grid created — no image files involved!
 This tool keeps only what's essential: the color data of the drawing.
+💡New features: you can now alterne to 8*8, 16*16 or 32*32 and export your image to PNG !
 
 ## 🛠 Materials required
 
