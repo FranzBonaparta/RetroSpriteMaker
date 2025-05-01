@@ -70,7 +70,7 @@ function love.draw()
 
     brush:draw()
     love.graphics.setColor(0, 0, 0)
-    love.graphics.printf("Made by Jojopov\nGNU GPL3 -2025",600,height,200)
+    love.graphics.printf("Made by Jojopov\nGNU GPL3 - 2025",600,height,200)
 end
 local function sameColor(c1, c2)
     return c1[1] == c2[1] and c1[2] == c2[2] and c1[3] == c2[3]
