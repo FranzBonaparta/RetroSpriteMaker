@@ -11,13 +11,13 @@ License: [GNU GPL v3](https://www.gnu.org/licenses/gpl-3.0.html)
 Draw your sprite then copy the grid created — no image files involved!
 This tool keeps only what's essential: the color data of the drawing.
 
-## Materials required
+## 🛠 Materials required
 
 - any code editor
 - Linux or **Windows Vista and later**
 - Love2D (for development or running the .love file)
 
-## Application installation
+## Application Installation
 
 ### Linux
 
@@ -32,7 +32,7 @@ Or, if you already have the .love file:
 
 You can build a Windows executable using the provided build script.
 
-## Build & Deployment
+## 📦 Build & Deployment
 
 A script named <code>build.sh</code> is included at the root of the repository. It generates both the .love archive and a standalone Windows <code>.exe</code>.
 
