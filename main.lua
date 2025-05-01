@@ -17,11 +17,13 @@ local height=love.graphics.getHeight()-40
 local scaler=Scaler(700,400,32)
 -- Function called only once at the beginning
 local function loadTiles()
+    local offsetX, offsetY = 32, 32
+
     tiles={}
         for y = 1, tilesAmount do
         tiles[y] = {}
         for x = 1, tilesAmount do
-            local tile = Tile((x-1) * scale, (y-1) * scale, scale)
+            local tile = Tile(offsetX +(x-1) * scale, offsetY+(y-1) * scale, scale)
             tiles[y][x] = tile
         end
     end
@@ -146,7 +148,9 @@ local function exportPng()
     love.graphics.setCanvas()
     local imageData = canvas:newImageData()
     imageData:encode("png", "export.png")
-    print("Sprite exporté vers export.png")
+    local path = love.filesystem.getSaveDirectory( )
+    print("Sprite exporté vers "..path.."/export.png")
+    
     for _, line in ipairs(tiles) do
         for _, tile in ipairs(line) do
             tile:setBorderColor(255,0,0)
