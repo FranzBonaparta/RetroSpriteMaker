@@ -7,7 +7,7 @@ function love.conf(w)
     w.console = true
     w.window.icon = nil
     w.window.borderless = false
-    w.window.resizable = false
+    w.window.resizable = true
     w.window.minwidth = 1
     w.window.minheight = 1
     w.window.fullscreen = false
