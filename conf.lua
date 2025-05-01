@@ -1,6 +1,6 @@
 -- Configuration function of Love2D
 function love.conf(w)
-    w.title = "RetroSpriteMaker v.1.0"
+    w.title = "RetroSpriteMaker"
     w.window.height = 600
     w.window.width = 800
     w.version = "11.4"
