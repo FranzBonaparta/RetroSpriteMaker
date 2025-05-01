@@ -16,6 +16,6 @@ Draw your sprite then copy the grid thus created.<br> Forget the image files! Th
 ## Application installation
 
 At the moment, there is no installer created;
-You will need to copy the git ones then run the project with the command <code>love ./lovezirconia/</code>.<br>
+You will need to copy the git ones then run the project with the command <code>love ./RetroSpriteMaker/</code>.<br>
 ⚠️ Some assets used are not covered by an open source license and therefore cannot be redistributed on the project's Git repository.<br> You will therefore need to add your own assets to the <code>assets/premium/</code> folder before compiling. ⚠️<br>
 🛠️ The executable will be shared when development has progressed further. 🛠️<br>
