@@ -11,12 +11,17 @@ function UI:new()
     self.scale = 32
     self.scaler = Scaler(700, 400, 32)
     self.palette = Palette(600, self.scale)
-    self.save = Button(600, 520, 32, 32, "save")
-    self.load = Button(650, 520, 32, 32, "load")
+    self.save = Button(600, 520, 40,40, "save")
+    self.load = Button(650, 520, 40,40, "load")
     self.fileVizualizer = FileVizualizer("RetroSpriteMaker", "sprites")
     self.fileVizualizer:init()
     self.fileVizualizer.hidden = true
     self.load:setImmediate()
+    self.load:setBackgroundColor(125,125,125)
+    self.load:setAngle(5)
+    self.save:setAngle(5)
+    self.save:setBackgroundColor(125,125,125)
+
     self.save:setImmediate()
     self.grid = nil
 end

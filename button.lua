@@ -44,7 +44,9 @@ function Button:setBackgroundColor(r, g, b, a)
     r, g, b = love.math.colorFromBytes(r, g, b)
     self.backgroundColor = { r, g, b, a }
 end
-
+function Button:setAngle(angle)
+    self.angle=angle
+end
 function Button:draw()
     love.graphics.setFont(defaultFont)
 
