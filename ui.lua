@@ -26,7 +26,6 @@ function UI:saveFile(name, grid)
 end
 
 function UI:showLoader()
-    --self.load:setOnClick(function()FileManager.loadSprite(name)end)
     self.load:setOnClick(function()
         self.fileVizualizer.hidden = false
     end)

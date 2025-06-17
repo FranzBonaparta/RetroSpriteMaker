@@ -129,7 +129,7 @@ function FileVizualizer:mousepressed(mx, my, button)
             for _, line in ipairs(self.lines) do
                 for _, item in ipairs(line) do
                     if item:isHovered(mx, my) then
-                        return item:onClick(FileExplorer)
+                        return item:onClick()
                     end
                 end
             end

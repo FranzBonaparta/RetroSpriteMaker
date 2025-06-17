@@ -27,11 +27,7 @@ function FileEntry:isHovered(mx, my)
            my >= self.y and my <= self.y + self.height
 end
 
-function FileEntry:onClick(explorer)
-    local content=explorer.readContent(self.name)
-    --print("Fichier cliqué :",self.fullPath,"\ncontent:".. content)
-
-    -- ici tu peux charger le fichier, ouvrir un menu, etc.
+function FileEntry:onClick()
     return self.fullPath
 end
 

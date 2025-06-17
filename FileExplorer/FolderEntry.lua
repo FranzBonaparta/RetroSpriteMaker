@@ -27,9 +27,9 @@ function FolderEntry:isHovered(mx, my)
            my >= self.y and my <= self.y + self.height
 end
 
-function FolderEntry:onClick(explorer)
-    --local content=explorer.readContent(self.name)
-    print("Dossier cliqué :",self.fullPath)
+function FolderEntry:onClick()
+    return self.fullPath
+
 end
 
 return FolderEntry
