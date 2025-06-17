@@ -11,8 +11,9 @@ License: [GNU GPL v3](https://www.gnu.org/licenses/gpl-3.0.html)
 Draw your sprite then copy the grid created — no image files involved!
 This tool keeps only what's essential: the color data of the drawing.
 
-💡**New features**: you can now **load & save your sprite** it's will be exported to .lua file
-**alterne to 8x8, 16x16 or 32x32** and **export your image to PNG** !
+💡**New features**: you can now 
+-**load & save your sprite**; it's will be exported to .lua file
+-**alterne to 8x8, 16x16 or 32x32** and **export your image to PNG** !
 
 ## 🛠 Materials required
 
