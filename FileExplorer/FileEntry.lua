@@ -1,6 +1,6 @@
 local Object=require("libs.classic")
 local FileEntry=Object:extend()
-local Draws=require("Draws")
+local Draws=require("libs.Draws")
 
 function FileEntry:new(path,name,x,y)
     self.path=path
@@ -29,8 +29,10 @@ end
 
 function FileEntry:onClick(explorer)
     local content=explorer.readContent(self.name)
-    print("Fichier cliqué :",self.fullPath,"\ncontent:".. content)
+    --print("Fichier cliqué :",self.fullPath,"\ncontent:".. content)
+
     -- ici tu peux charger le fichier, ouvrir un menu, etc.
+    return self.fullPath
 end
 
 return FileEntry

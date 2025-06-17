@@ -1,6 +1,6 @@
 local Object=require("libs.classic")
 local FolderEntry=Object:extend()
-local Draws=require("Draws")
+local Draws=require("libs.Draws")
 
 function FolderEntry:new(path,name,x,y)
     self.path=path

@@ -8,7 +8,7 @@ function FileManager.saveSprite(name, grid, palette)
     for y = 1, #grid do
         fileData = fileData .. "    { "
         for x = 1, #grid[y] do
-            fileData = fileData .. tostring(grid[y][x]) .. ", "
+            fileData = fileData .. string.format("    { %d, %d, %d },\n", grid[y][x].color[1], grid[y][x].color[2], grid[y][x].color[3])
         end
         fileData = fileData .. "},\n"
     end
@@ -16,12 +16,18 @@ function FileManager.saveSprite(name, grid, palette)
 
     -- Sauvegarde de la palette
     fileData = fileData .. "  palette = {\n"
-    for _, color in ipairs(palette) do
-        fileData = fileData .. string.format("    { %d, %d, %d },\n", color[1], color[2], color[3])
-    end
-    fileData = fileData .. "  }\n"
-    fileData = fileData .. "}\n"
+    for _, line in ipairs(palette.colorTiles) do
+                fileData = fileData .. "    {\n "
 
+        for index, color in ipairs(line) do
+                    fileData = fileData .. string.format("    { %d, %d, %d },\n", color.color[1], color.color[2], color.color[3])
+
+        end
+       fileData = fileData .. "  },\n" 
+    end
+    
+    fileData = fileData .. "}\n"
+fileData = fileData .. "}\n"
     love.filesystem.createDirectory("sprites") -- Crée le dossier si nécessaire
     love.filesystem.write(path, fileData)
     print("Sprite sauvé dans : " .. path)
@@ -30,7 +36,8 @@ local function sameColor(c1, c2)
     return c1[1] == c2[1] and c1[2] == c2[2] and c1[3] == c2[3]
 end
 function FileManager.loadSprite(name)
-    local chunk = love.filesystem.load("sprites/" .. name .. ".lua")
+    --local chunk = love.filesystem.load("sprites/" .. name .. ".lua")
+    local chunk = love.filesystem.load(name)
     local data = chunk()
     return data.grid, data.palette
 end

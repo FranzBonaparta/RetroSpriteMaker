@@ -64,11 +64,11 @@ function FileExplorer.getFolders(folder)
     return folders
 end
 function FileExplorer.readContent(fileSearched)
-    local files = love.filesystem.getDirectoryItems("save")
+    local files = love.filesystem.getDirectoryItems("sprites")
     local content, size = "", 0
     for k, file in ipairs(files) do
         if file == fileSearched then
-            content, size = love.filesystem.read("save/" .. file)
+            content, size = love.filesystem.read("sprites/" .. file)
             return content
         end
     end

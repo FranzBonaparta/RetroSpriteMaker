@@ -1,9 +1,9 @@
 local Object = require("libs.classic")
 local FileVizualizer = Object:extend()
-local ScrollBar = require("ScrollBar")
-local FileExplorer = require("FileExplorer")
-local FileEntry = require("FileEntry")
-local FolderEntry = require("FolderEntry")
+local ScrollBar = require("FileExplorer.ScrollBar")
+local FileExplorer = require("FileExplorer.FileExplorer")
+local FileEntry = require("FileExplorer.FileEntry")
+local FolderEntry = require("FileExplorer.FolderEntry")
 
 function FileVizualizer:new(identity, path)
     self.files = {}
@@ -129,8 +129,7 @@ function FileVizualizer:mousepressed(mx, my, button)
             for _, line in ipairs(self.lines) do
                 for _, item in ipairs(line) do
                     if item:isHovered(mx, my) then
-                        item:onClick(FileExplorer)
-                        break
+                        return item:onClick(FileExplorer)
                     end
                 end
             end
@@ -191,5 +190,7 @@ end
 function FileVizualizer:update()
    self:updateCursor()
 end
-
+function FileVizualizer:isVisible()
+    return not self.hidden
+end
 return FileVizualizer

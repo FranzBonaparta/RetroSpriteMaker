@@ -20,6 +20,9 @@ function Scaler:changeTilesAmount()
         end
     end
 end
+function Scaler:setTilesAmount(newAmount)
+    self.tilesAmount=newAmount
+end
 function Scaler:draw()
     self.super:draw()
     local text=string.format("%dx%d",self.tilesAmount,self.tilesAmount)

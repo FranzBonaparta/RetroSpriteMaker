@@ -21,7 +21,11 @@ function Palette:new(x, y)
     self.colorTiles = {}
     self.colorSelected = {20,2,40}
     self.cursorState="arrow"
-    for j, line in ipairs(colors) do
+    self:setColors(colors)
+end
+function Palette:setColors(newColors)
+    self.colorTiles={}
+    for j, line in ipairs(newColors) do
         self.colorTiles[j] = {}
         for i, color in ipairs(line) do
             local tile = Tile(self.x + self.size * (i - 1), self.y + self.size * (j - 1), self.size)
@@ -30,7 +34,6 @@ function Palette:new(x, y)
         end
     end
 end
-
 function Palette:draw()
     -- Calculation of the total size of the pallet
     local paletteWidth = #colors[1] * self.size
