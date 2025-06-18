@@ -40,7 +40,7 @@ end
 function love.update(dt)
     -- dt = delta time = time since last frame
     -- Used for fluid movements
-    ui:update(dt)
+    ui:update(dt,tiles)
     local mx, my = love.mouse.getX(), love.mouse.getY()
     if love.mouse.isDown(1) then
         for _, line in ipairs(tiles) do
@@ -72,12 +72,13 @@ end
 function love.draw()
     -- Everything that needs to be displayed passes here
     love.graphics.setColor(1, 1, 1) -- white
-    ui:draw()
     for _, line in ipairs(tiles) do
         for _, tile in ipairs(line) do
             tile:draw()
         end
     end
+    ui:draw()
+
     love.graphics.setColor(0, 0, 0)
     love.graphics.print("Selected Color", 600, 380)
     love.graphics.printf("Right click to erase\nLeft click to paint", 600, 450, 500)
@@ -87,6 +88,7 @@ function love.draw()
     love.graphics.setColor(0, 0, 0)
     love.graphics.print("Press E to export to png", 600, 500)
     love.graphics.printf("Made by Jojopov\nGNU GPL3 - 2025", 600, height, 200)
+    
     if ui.fileVizualizer:isVisible() then
         ui.fileVizualizer:draw()
     end
@@ -117,4 +119,7 @@ function love.mousepressed(mx, my, button)
             ui.scaler:mousepressed(mx, my, button)
         end
     end
+end
+function love.textinput(text)
+    ui.input:textinput(text)
 end

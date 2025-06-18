@@ -6,49 +6,59 @@ local Scaler = require("scaler")
 local FileManager = require("fileManager")
 local text = nil
 local FileVizualizer = require("FileExplorer.FileVizualizer")
-
+local InputName = require("inputName")
 function UI:new()
     self.scale = 32
     self.scaler = Scaler(700, 400, 32)
     self.palette = Palette(600, self.scale)
-    self.save = Button(600, 520, 40,40, "save")
-    self.load = Button(650, 520, 40,40, "load")
+    self.save = Button(600, 520, 40, 40, "save")
+    self.load = Button(650, 520, 40, 40, "load")
     self.fileVizualizer = FileVizualizer("RetroSpriteMaker", "sprites")
     self.fileVizualizer:init()
     self.fileVizualizer.hidden = true
     self.load:setImmediate()
-    self.load:setBackgroundColor(125,125,125)
+    self.load:setBackgroundColor(125, 125, 125)
     self.load:setAngle(5)
     self.save:setAngle(5)
-    self.save:setBackgroundColor(125,125,125)
-
+    self.save:setBackgroundColor(125, 125, 125)
+    self.input = InputName(50, 50, 400, 200)
     self.save:setImmediate()
     self.grid = nil
 end
 
 function UI:saveFile(name, grid)
-    self.save:setOnClick(function() FileManager.saveSprite(name, grid, self.palette) end)
+    self.save:setOnClick(function()
+        self.input:show()
+        --FileManager.saveSprite(name, grid, self.palette)
+    end)
 end
 
 function UI:showLoader()
     self.load:setOnClick(function()
+        self.fileVizualizer:reset()
         self.fileVizualizer.hidden = false
     end)
 end
 
 function UI:draw()
-    love.graphics.setColor(1, 1, 1)
-    self.palette:draw()
-    self.scaler:draw()
-    self.save:draw()
-    self.load:draw()
-    love.graphics.setColor(1, 1, 1)
-    if text then
-        print(text)
+    if self.input:isVisible() then
+        self.input:draw()
+    else
+        love.graphics.setColor(1, 1, 1)
+        self.palette:draw()
+        self.scaler:draw()
+        self.save:draw()
+        self.load:draw()
+        love.graphics.setColor(1, 1, 1)
+        if text then
+            print(text)
+        end
     end
 end
 
 function UI:mousepressed(mx, my, button, grid)
+    self.input:mousepressed(mx, my, button)
+
     --if fileVizualizer is visible then procede
     if self.fileVizualizer:isVisible() then
         local name = self.fileVizualizer:mousepressed(mx, my, button)
@@ -70,7 +80,7 @@ function UI:mousepressed(mx, my, button, grid)
             return
         end
         --if fileVizualizer is hidden then activate buttons
-    elseif not self.fileVizualizer:isVisible() then
+    elseif not self.fileVizualizer:isVisible() and not self.input:isVisible() then
         self.palette:mousepressed(mx, my, button)
         if self.save:isHovered(mx, my) then
             self.grid = grid
@@ -84,24 +94,34 @@ function UI:mousepressed(mx, my, button, grid)
     end
 end
 
-function UI:update(dt)
+function UI:update(dt, grid)
     self.palette:update(dt)
     if self.fileVizualizer:isVisible() then
         self.fileVizualizer:update()
     end
+    self.input:update(dt)
+    if self.input.validated then
+        FileManager.saveSprite(self.input.name, grid, self.palette)
+        self.input.name = ""
+        self.input.validated = false
+    end
 end
 
 function UI:keypressed(key, tiles)
-    if key == "c" then
-        --copy to clipboard
-        FileManager.saveDraw(self, tiles)
-    end
-    if key == "e" then
-        FileManager.exportPng(self, tiles)
-    end
-    if key == "f" then
-        local folder = love.filesystem.getSaveDirectory()
-        text = FileManager.fileTree(folder, "")
+    if self.input:isVisible() then
+        self.input:keypressed(key)
+    else
+        if key == "c" then
+            --copy to clipboard
+            FileManager.saveDraw(self, tiles)
+        end
+        if key == "e" then
+            FileManager.exportPng(self, tiles)
+        end
+        if key == "f" then
+            local folder = love.filesystem.getSaveDirectory()
+            text = FileManager.fileTree(folder, "")
+        end
     end
 end
 

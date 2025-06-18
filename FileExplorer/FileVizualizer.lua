@@ -42,6 +42,14 @@ function FileVizualizer:init()
     self:dispatchToLines()
 end
 
+function FileVizualizer:reset()
+    self.files = {}
+    self.folders = {}
+    self.lines = {}
+    self.visibleLines = {}
+    self:init()
+end
+
 --set lines to make flex
 function FileVizualizer:dispatchToLines()
     self.lines = {}
@@ -164,8 +172,9 @@ function FileVizualizer:wheelmoved(mx, my)
         end
     end
 end
+
 function FileVizualizer:updateCursor()
-     if self.hidden and self.cursorState ~= "arrow" then
+    if self.hidden and self.cursorState ~= "arrow" then
         self.cursorState = "arrow"
         love.mouse.setCursor(love.mouse.getSystemCursor("arrow"))
     elseif not self.hidden then
@@ -187,10 +196,13 @@ function FileVizualizer:updateCursor()
         end
     end
 end
+
 function FileVizualizer:update()
-   self:updateCursor()
+    self:updateCursor()
 end
+
 function FileVizualizer:isVisible()
     return not self.hidden
 end
+
 return FileVizualizer
