@@ -100,10 +100,9 @@ function UI:update(dt, grid)
         self.fileVizualizer:update()
     end
     self.input:update(dt)
-    if self.input.validated then
+    if self.input:consumeValidation() then
         FileManager.saveSprite(self.input.name, grid, self.palette)
         self.input.name = ""
-        self.input.validated = false
     end
 end
 
