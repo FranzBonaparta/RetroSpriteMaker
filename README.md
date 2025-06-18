@@ -3,7 +3,7 @@
 Created by **Jojopov**  
 License: [GNU GPL v3](https://www.gnu.org/licenses/gpl-3.0.html)  
 2025
-![Miniature](./miniature.png){width=75%}
+![Miniature](./miniature_2.png){width=75%}
 
 ## Introduction
 
@@ -12,8 +12,7 @@ Draw your sprite then copy the grid created — no image files involved!
 This tool keeps only what's essential: the color data of the drawing.
 
 💡**New features**:
-You can now 
-- **load & save your sprite**; it's will be exported to .lua file
+- **Save and load your sprite** — exported as a .lua file (no image required!)
 - **alterne to 8x8, 16x16 or 32x32** and **export your image to PNG** !
 
 ## 🛠 Materials required
@@ -64,6 +63,14 @@ Once built, your executable is located at:
 
 <code>build/windows/RetroSpriteMaker.exe</code> 
 It can be run directly **without installing Love2D**.
+
+## 🔭 Roadmap
+
+- [x] Save/load system
+- [x] File naming input
+- [ ] Sprite mirroring
+- [ ] Color palette management
+- [ ] Animated preview mode
 
 ## 🎨 Color Index Reference
 

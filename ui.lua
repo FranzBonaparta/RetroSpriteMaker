@@ -58,7 +58,6 @@ end
 
 function UI:mousepressed(mx, my, button, grid)
     self.input:mousepressed(mx, my, button)
-
     --if fileVizualizer is visible then procede
     if self.fileVizualizer:isVisible() then
         local name = self.fileVizualizer:mousepressed(mx, my, button)
@@ -77,6 +76,7 @@ function UI:mousepressed(mx, my, button, grid)
             --setting newPalette
             self.palette:setColors(newPalette)
             self.fileVizualizer.hidden = true
+            MouseCooldown = 0.2
             return
         end
         --if fileVizualizer is hidden then activate buttons

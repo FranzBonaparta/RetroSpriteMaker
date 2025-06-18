@@ -12,6 +12,8 @@ SelectedTile = nil
 local brush = Tile(600, 400, ui.scale)
 brush:setColor({ selectedColor[1], selectedColor[2], selectedColor[3] })
 local height = love.graphics.getHeight() - 40
+MouseCooldown = 0
+
 -- Function called only once at the beginning
 local function loadTiles()
     local offsetX, offsetY = 32, 32
@@ -40,31 +42,36 @@ end
 function love.update(dt)
     -- dt = delta time = time since last frame
     -- Used for fluid movements
-    ui:update(dt,tiles)
+        if MouseCooldown>0 then
+            MouseCooldown=MouseCooldown - dt
+        end 
+    ui:update(dt, tiles)
     local mx, my = love.mouse.getX(), love.mouse.getY()
-    if love.mouse.isDown(1) then
-        for _, line in ipairs(tiles) do
-            for _, tile in ipairs(line) do
-                if tile:mouseIsHover(mx, my) then
-                    tile:setColor(brush.color)
+    if not ui.fileVizualizer:isVisible() and MouseCooldown<=0 then
+        if love.mouse.isDown(1) then
+            for _, line in ipairs(tiles) do
+                for _, tile in ipairs(line) do
+                    if tile:mouseIsHover(mx, my) then
+                        tile:setColor(brush.color)
+                    end
                 end
             end
         end
-    end
-    if love.mouse.isDown(2) then
-        for _, line in ipairs(tiles) do
-            for _, tile in ipairs(line) do
-                if tile:mouseIsHover(mx, my) then
-                    tile:setColor({ 255, 255, 255 })
+        if love.mouse.isDown(2)then
+            for _, line in ipairs(tiles) do
+                for _, tile in ipairs(line) do
+                    if tile:mouseIsHover(mx, my) then
+                        tile:setColor({ 255, 255, 255 })
+                    end
                 end
             end
         end
-    end
-    if tilesAmount ~= ui.scaler.tilesAmount then
-        tilesAmount = ui.scaler.tilesAmount
-        ui.scale = (tilesAmount == 32) and 16 or 32
+        if tilesAmount ~= ui.scaler.tilesAmount then
+            tilesAmount = ui.scaler.tilesAmount
+            ui.scale = (tilesAmount == 32) and 16 or 32
 
-        loadTiles()
+            loadTiles()
+        end
     end
 end
 
@@ -88,7 +95,7 @@ function love.draw()
     love.graphics.setColor(0, 0, 0)
     love.graphics.print("Press E to export to png", 600, 500)
     love.graphics.printf("Made by Jojopov\nGNU GPL3 - 2025", 600, height, 200)
-    
+
     if ui.fileVizualizer:isVisible() then
         ui.fileVizualizer:draw()
     end
@@ -104,6 +111,10 @@ function love.keypressed(key)
 end
 
 function love.mousepressed(mx, my, button)
+    if ui.fileVizualizer:isVisible() then
+        ui:mousepressed(mx, my, button, tiles)
+        return
+    end
     ui:mousepressed(mx, my, button, tiles)
     if not ui.fileVizualizer:isVisible() then
         if ui.palette.colorSelected then
@@ -120,6 +131,7 @@ function love.mousepressed(mx, my, button)
         end
     end
 end
+
 function love.textinput(text)
     ui.input:textinput(text)
 end
