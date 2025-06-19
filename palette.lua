@@ -69,8 +69,8 @@ function Palette:mousepressed(mx, my, button)
             for _, tile in ipairs(line) do
                 if tile:mouseIsHover(mx, my)  then
                     self.colorSelected = tile.color
-                    print("tile cliked on ["..tile.x..","..tile.y.."]")
-                    print("colorSelected: "..self.colorSelected[1],self.colorSelected[2],self.colorSelected[3])
+                    --print("tile cliked on ["..tile.x..","..tile.y.."]")
+                    --print("colorSelected: "..self.colorSelected[1],self.colorSelected[2],self.colorSelected[3])
                     break
                 end
             end

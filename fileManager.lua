@@ -30,7 +30,7 @@ function FileManager.saveSprite(name, grid, palette)
 fileData = fileData .. "}\n"
     love.filesystem.createDirectory("sprites") -- Crée le dossier si nécessaire
     love.filesystem.write(path, fileData)
-    print("Sprite sauvé dans : " .. path)
+    --print("Sprite sauvé dans : " .. path)
 end
 local function sameColor(c1, c2)
     return c1[1] == c2[1] and c1[2] == c2[2] and c1[3] == c2[3]

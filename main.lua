@@ -87,7 +87,6 @@ function love.draw()
     brush:draw()
     love.graphics.setColor(0, 0, 0)
     love.graphics.print("Press E to export to png", 600, 500)
-    love.graphics.printf("Made by Jojopov\nGNU GPL3 - 2025", 600, height, 200)
 
     if ui.fileVizualizer:isVisible() then
         ui.fileVizualizer:draw()

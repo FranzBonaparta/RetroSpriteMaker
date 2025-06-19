@@ -31,7 +31,7 @@ function UI:initButtons(buttons)
     end
 end
 
-function UI:saveFile(name, grid)
+function UI:saveFile()
     self.save:setOnClick(function()
         self.canDraw = false
         self.input:show()
@@ -54,9 +54,7 @@ function UI:draw()
     self.save:draw()
     self.load:draw()
     love.graphics.setColor(1, 1, 1)
-    if text then
-        print(text)
-    end
+   
     if self.input:isVisible() then
         self.input:draw()
     end
@@ -68,7 +66,7 @@ function UI:mousepressed(mx, my, button, grid)
     if self.fileVizualizer:isVisible() then
         local name = self.fileVizualizer:mousepressed(mx, my, button)
         if name then
-            print("name=" .. name)
+            --print("name=" .. name)
             --loading datas
             local newPalette, newGrid = {}, {}
             newGrid, newPalette = FileManager.loadSprite(name)
@@ -89,7 +87,7 @@ function UI:mousepressed(mx, my, button, grid)
         self.palette:mousepressed(mx, my, button)
         if self.save:isHovered(mx, my) then
             self.grid = grid
-            self:saveFile("export", self.grid)
+            self:saveFile()
         end
         self.save:mousepressed(mx, my, button)
         if self.load:isHovered(mx, my) then

@@ -100,7 +100,7 @@ function Button:mousepressed(mx, my, button)
             self.pressedTime = 0.1
         else
             self.onClick()
-            print("click on "..mx..","..my)
+            --print("click on "..mx..","..my)
         end
         --FxManager.play("click")
     end
@@ -111,7 +111,7 @@ function Button:mousereleased(mx, my, button)
     if button == 1 and self:isHovered(mx, my)
         and self.pressed == true and self.canReleased == true then
         self.onClick()
-        print("click", mx, my)
+        --print("click", mx, my)
         return true -- tell parent box to stop propagation
     end
     self.pressed = false
