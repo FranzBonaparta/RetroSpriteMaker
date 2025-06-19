@@ -3,7 +3,7 @@
 Created by **Jojopov**  
 License: [GNU GPL v3](https://www.gnu.org/licenses/gpl-3.0.html)  
 2025
-![Miniature](./miniature_2.png)
+![Miniature](./miniature.png)
 
 ## Introduction
 
