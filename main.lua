@@ -12,7 +12,6 @@ SelectedTile = nil
 local brush = Tile(600, 400, ui.scale)
 brush:setColor({ selectedColor[1], selectedColor[2], selectedColor[3] })
 local height = love.graphics.getHeight() - 40
-MouseCooldown = 0
 
 -- Function called only once at the beginning
 local function loadTiles()
@@ -29,11 +28,8 @@ local function loadTiles()
 end
 function love.load()
     love.filesystem.setIdentity("RetroSpriteMaker")
-
     love.filesystem.setIdentity(love.filesystem.getIdentity(), true)
-
     loadTiles()
-
     -- Initialization of resources (images, sounds, variables)
     love.graphics.setBackgroundColor(1, 1, 1) -- dark grey background
 end
@@ -42,12 +38,10 @@ end
 function love.update(dt)
     -- dt = delta time = time since last frame
     -- Used for fluid movements
-        if MouseCooldown>0 then
-            MouseCooldown=MouseCooldown - dt
-        end 
+        
     ui:update(dt, tiles)
     local mx, my = love.mouse.getX(), love.mouse.getY()
-    if not ui.fileVizualizer:isVisible() and MouseCooldown<=0 then
+    if ui.canDraw then
         if love.mouse.isDown(1) then
             for _, line in ipairs(tiles) do
                 for _, tile in ipairs(line) do
@@ -69,7 +63,6 @@ function love.update(dt)
         if tilesAmount ~= ui.scaler.tilesAmount then
             tilesAmount = ui.scaler.tilesAmount
             ui.scale = (tilesAmount == 32) and 16 or 32
-
             loadTiles()
         end
     end
@@ -116,7 +109,7 @@ function love.mousepressed(mx, my, button)
         return
     end
     ui:mousepressed(mx, my, button, tiles)
-    if not ui.fileVizualizer:isVisible() then
+    if  ui.canDraw then
         if ui.palette.colorSelected then
             selectedColor = ui.palette.colorSelected
             brush:setColor(selectedColor)

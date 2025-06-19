@@ -13,12 +13,16 @@ function InputName:new(x, y, width, height)
     self.visible = false
     self.inputField:setCoord(self.x + 64, self.y + 64)
     self.cancel = Button(self.x + 50, self.y + self.height - 100, 100, 50, "cancel")
+    self.validate = Button(self.width + self.x - 200, self.y + self.height - 100, 100, 50, "validate")
+    self.validated = false
+    self:initButtons()
+end
+
+function InputName:initButtons()
     self.cancel:setBackgroundColor(255, 0, 0)
     self.cancel:setAngle(20)
     self.cancel:setOnClick(function() self.visible = false end)
     self.cancel:setImmediate()
-    self.validate = Button(self.width + self.x - 200, self.y + self.height - 100, 100, 50, "validate")
-    self.validated = false
     self.validate:setBackgroundColor(0, 255, 0)
     self.validate:setAngle(20)
     self.validate:setImmediate()

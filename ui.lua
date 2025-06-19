@@ -16,24 +16,31 @@ function UI:new()
     self.fileVizualizer = FileVizualizer("RetroSpriteMaker", "sprites")
     self.fileVizualizer:init()
     self.fileVizualizer.hidden = true
-    self.load:setImmediate()
-    self.load:setBackgroundColor(125, 125, 125)
-    self.load:setAngle(5)
-    self.save:setAngle(5)
-    self.save:setBackgroundColor(125, 125, 125)
+    self:initButtons({ self.load, self.save })
     self.input = InputName(50, 50, 400, 200)
-    self.save:setImmediate()
     self.grid = nil
+    self.canDraw = true
+    self.coolDown = 0
+end
+
+function UI:initButtons(buttons)
+    for _, button in pairs(buttons) do
+        button:setImmediate()
+        button:setBackgroundColor(125, 125, 125)
+        button:setAngle(5)
+    end
 end
 
 function UI:saveFile(name, grid)
     self.save:setOnClick(function()
+        self.canDraw = false
         self.input:show()
         --FileManager.saveSprite(name, grid, self.palette)
     end)
 end
 
 function UI:showLoader()
+    self.canDraw = false
     self.load:setOnClick(function()
         self.fileVizualizer:reset()
         self.fileVizualizer.hidden = false
@@ -41,18 +48,17 @@ function UI:showLoader()
 end
 
 function UI:draw()
+    love.graphics.setColor(1, 1, 1)
+    self.palette:draw()
+    self.scaler:draw()
+    self.save:draw()
+    self.load:draw()
+    love.graphics.setColor(1, 1, 1)
+    if text then
+        print(text)
+    end
     if self.input:isVisible() then
         self.input:draw()
-    else
-        love.graphics.setColor(1, 1, 1)
-        self.palette:draw()
-        self.scaler:draw()
-        self.save:draw()
-        self.load:draw()
-        love.graphics.setColor(1, 1, 1)
-        if text then
-            print(text)
-        end
     end
 end
 
@@ -76,7 +82,6 @@ function UI:mousepressed(mx, my, button, grid)
             --setting newPalette
             self.palette:setColors(newPalette)
             self.fileVizualizer.hidden = true
-            MouseCooldown = 0.2
             return
         end
         --if fileVizualizer is hidden then activate buttons
@@ -98,11 +103,21 @@ function UI:update(dt, grid)
     self.palette:update(dt)
     if self.fileVizualizer:isVisible() then
         self.fileVizualizer:update()
+        self.coolDown = 1
+        return
     end
     self.input:update(dt)
     if self.input:consumeValidation() then
         FileManager.saveSprite(self.input.name, grid, self.palette)
         self.input.name = ""
+        self.coolDown = 1
+        return
+    end
+    if not self.fileVizualizer:isVisible() and not self.input:isVisible() then
+        self.coolDown = math.max(0, self.coolDown - dt)
+        if self.coolDown <= 0 then
+            self.canDraw = true
+        end
     end
 end
 
