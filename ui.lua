@@ -4,7 +4,7 @@ local UI = Object:extend()
 local Palette = require("palette")
 local Scaler = require("scaler")
 local FileManager = require("fileManager")
-local text = nil
+local Draws = require("libs.Draws")
 local FileVizualizer = require("FileExplorer.FileVizualizer")
 local InputName = require("inputName")
 function UI:new()
@@ -54,10 +54,11 @@ function UI:draw()
     self.save:draw()
     self.load:draw()
     love.graphics.setColor(1, 1, 1)
-   
+
     if self.input:isVisible() then
         self.input:draw()
     end
+    self:drawInfo()
 end
 
 function UI:mousepressed(mx, my, button, grid)
@@ -135,6 +136,19 @@ function UI:keypressed(key, tiles)
             text = FileManager.fileTree(folder, "")
         end
     end
+end
+
+function UI:drawInfo()
+    love.graphics.setColor(0, 0, 0)
+    love.graphics.print(":Paint", 630, 450)
+    love.graphics.print(":Erase", 710, 450)
+    Draws.leftClick(600 - 5, 440, 2)
+    Draws.rightClick(680 - 5, 440, 2)
+    love.graphics.setColor(0, 0, 0)
+
+    love.graphics.printf("[C] Copy on clipboard", 600, 480, 500)
+    love.graphics.print("Grid Size", 700, 380)
+    love.graphics.print("[E] Export to png", 600, 500)
 end
 
 return UI

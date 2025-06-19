@@ -8,10 +8,8 @@ local ui = UI()
 local tilesAmount = 16
 local tiles = {}
 local selectedColor = ui.palette.colorSelected -- default
-SelectedTile = nil
 local brush = Tile(600, 400, ui.scale)
 brush:setColor({ selectedColor[1], selectedColor[2], selectedColor[3] })
-local height = love.graphics.getHeight() - 40
 
 -- Function called only once at the beginning
 local function loadTiles()
@@ -27,20 +25,19 @@ local function loadTiles()
     end
 end
 function love.load()
+        -- Initialization of resources (images, sounds, variables)
     love.filesystem.setIdentity("RetroSpriteMaker")
     love.filesystem.setIdentity(love.filesystem.getIdentity(), true)
     loadTiles()
-    -- Initialization of resources (images, sounds, variables)
     love.graphics.setBackgroundColor(1, 1, 1) -- dark grey background
 end
 
 -- Function called at each frame, it updates the logic of the game
 function love.update(dt)
-    -- dt = delta time = time since last frame
-    -- Used for fluid movements
-        
+    -- dt = delta time = time since last frame 
     ui:update(dt, tiles)
     local mx, my = love.mouse.getX(), love.mouse.getY()
+    --check if we can draw
     if ui.canDraw then
         if love.mouse.isDown(1) then
             for _, line in ipairs(tiles) do
@@ -81,13 +78,10 @@ function love.draw()
 
     love.graphics.setColor(0, 0, 0)
     love.graphics.print("Color", 600, 380)
-    love.graphics.printf("Right click to erase\nLeft click to paint", 600, 450, 500)
-    love.graphics.printf("Press C to copy on clipboard", 600, 480, 500)
-    love.graphics.print("Grid Size", 700, 380)
+
+    --love.graphics.printf("Right click: erase\nLeft click: paint", 600, 450, 500)
     brush:draw()
     love.graphics.setColor(0, 0, 0)
-    love.graphics.print("Press E to export to png", 600, 500)
-
     if ui.fileVizualizer:isVisible() then
         ui.fileVizualizer:draw()
     end
@@ -108,6 +102,7 @@ function love.mousepressed(mx, my, button)
         return
     end
     ui:mousepressed(mx, my, button, tiles)
+    --check if we can draw
     if  ui.canDraw then
         if ui.palette.colorSelected then
             selectedColor = ui.palette.colorSelected
