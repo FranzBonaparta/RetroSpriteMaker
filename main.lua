@@ -80,7 +80,7 @@ function love.draw()
     ui:draw()
 
     love.graphics.setColor(0, 0, 0)
-    love.graphics.print("Selected Color", 600, 380)
+    love.graphics.print("Color", 600, 380)
     love.graphics.printf("Right click to erase\nLeft click to paint", 600, 450, 500)
     love.graphics.printf("Press C to copy on clipboard", 600, 480, 500)
     love.graphics.print("Grid Size", 700, 380)
