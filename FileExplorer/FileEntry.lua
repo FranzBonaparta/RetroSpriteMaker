@@ -12,11 +12,19 @@ function FileEntry:new(path,name,x,y)
     self.height=64
 
 end
+local function truncateName(name, maxLength)
+    if #name > maxLength then
+        return name:sub(1, maxLength - 3) .. "..."
+    else
+        return name
+    end
+end
 
 function FileEntry:draw()
     Draws.file(self.x, self.y, 2)
     love.graphics.setColor(0, 0, 0)
-    love.graphics.print(self.name, self.x+10, self.y + 60)
+    local name=truncateName(self.name,10)
+    love.graphics.print(name, self.x+10, self.y + 60)
 end
 function FileEntry:setCoord(x,y)
     self.x=x
