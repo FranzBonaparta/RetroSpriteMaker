@@ -81,8 +81,8 @@ end
 function FileManager.exportPng(ui,tiles)
     local tilesAmount=ui.scaler.tilesAmount
     local canvas = love.graphics.newCanvas(
-    tilesAmount * ui.scale,
-    tilesAmount * ui.scale,
+    tilesAmount,
+    tilesAmount,
     { format = "rgba8" })
     love.graphics.setCanvas(canvas)
     love.graphics.clear(0, 0, 0, 0)-- alpha 0 = transparent
@@ -92,14 +92,14 @@ function FileManager.exportPng(ui,tiles)
         for colIndex, tile in ipairs(row) do
             if not isWhite(tile.color) then
                 local r, g, b = tile.color[1] / 255, tile.color[2] / 255, tile.color[3] / 255
-                local x = (colIndex - 1) * ui.scale
-                local y = (rowIndex - 1) * ui.scale
+                local x = (colIndex - 1) 
+                local y = (rowIndex - 1) 
                 love.graphics.setColor(r, g, b)
-                love.graphics.rectangle("fill", x, y, ui.scale, ui.scale)
+                love.graphics.rectangle("fill", x, y, 1, 1)
             end
         end
     end
-
+	print("scale:"..ui.scale)
     love.graphics.setCanvas()
     local imageData = canvas:newImageData()
     imageData:encode("png", "export.png")
