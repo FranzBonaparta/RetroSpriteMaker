@@ -9,7 +9,7 @@ local FileVizualizer = require("FileExplorer.FileVizualizer")
 local InputName = require("inputName")
 function UI:new()
     self.scale = 32
-    self.scaler = Scaler(700, 400, 32)
+    self.scaler = Scaler(700,400, 32)
     self.palette = Palette(600, self.scale)
     self.save = Button(600, 520, 40, 40, "save")
     self.load = Button(650, 520, 40, 40, "load")
