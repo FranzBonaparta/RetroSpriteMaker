@@ -16,6 +16,7 @@ function InputName:new(x, y, width, height)
     self.validate = Button(self.width + self.x - 200, self.y + self.height - 100, 100, 50, "validate")
     self.validated = false
     self:initButtons()
+    self.isModal = false
 end
 
 function InputName:initButtons()
@@ -35,6 +36,10 @@ function InputName:initButtons()
     end)
 end
 
+function InputName:setText(text)
+    self.text = text
+end
+
 function InputName:consumeValidation()
     if self.validated then
         self.validated = false
@@ -49,11 +54,18 @@ function InputName:draw()
         love.graphics.rectangle("line", self.x, self.y, self.width, self.height)
         love.graphics.setColor(1, 1, 1)
         love.graphics.rectangle("fill", self.x, self.y, self.width, self.height)
-        self.inputField:draw()
-        self.cancel:draw()
-        self.validate:draw()
         love.graphics.setColor(0, 0, 0)
-        love.graphics.print("Entrez le nom du sprite :", self.x + 64, self.y + 32)
+
+        if not self.isModal then
+            self.inputField:draw()
+            self.cancel:draw()
+            love.graphics.print("Entrez le nom du sprite :", self.x + 64, self.y + 32)
+        else
+            love.graphics.print(self.text, self.x + 64, self.y + 32)
+            love.graphics.setColor(1, 1, 1)
+        end
+        self.validate:draw()
+
         love.graphics.setColor(1, 1, 1)
     end
 end

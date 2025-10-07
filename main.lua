@@ -32,12 +32,13 @@ function love.draw()
     -- Everything that needs to be displayed passes here
     love.graphics.setColor(1, 1, 1) -- white
     grid:draw()
-    ui:draw()
-    love.graphics.setColor(0, 0, 0)
+     love.graphics.setColor(0, 0, 0)
     love.graphics.print("Color", 600, 380)
 
     --love.graphics.printf("Right click: erase\nLeft click: paint", 600, 450, 500)
-    brush:draw()
+    brush:draw()  
+    ui:draw()
+
     love.graphics.setColor(0, 0, 0)
     if ui.fileVizualizer:isVisible() then
         ui.fileVizualizer:draw()
@@ -54,7 +55,7 @@ function love.keypressed(key)
 end
 
 function love.mousepressed(mx, my, button)
-    if ui.fileVizualizer:isVisible() then
+    if ui.fileVizualizer:isVisible() or ui.modalBox:isVisible() then
         ui:mousepressed(mx, my, button, grid)
         return
     end
