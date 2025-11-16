@@ -6,6 +6,7 @@ function Grid:new(ui)
     self.tiles={}
     self.ui=ui
     self.tilesAmount=self.ui.scaler.tilesAmount
+    self.canvas=love.graphics.newCanvas()
 end
 function Grid:loadTiles()
     local offsetX, offsetY = 32, 32
@@ -18,7 +19,9 @@ function Grid:loadTiles()
             self.tiles[y][x] = tile
         end
     end
+    self:updateCanvas()
 end
+
 function Grid:getTiles()
     return self.tiles
 end
@@ -26,14 +29,12 @@ end
 function Grid:getTilesAmount()
     return self.tilesAmount
 end
+
 function Grid:draw()
     love.graphics.setColor(1, 1, 1) -- white
-    for _, line in ipairs(self.tiles) do
-        for _, tile in ipairs(line) do
-            tile:draw()
-        end
-    end
+    love.graphics.draw(self.canvas,0,0)
 end
+
 function Grid:update(brush)
     local mx, my = love.mouse.getX(), love.mouse.getY()
     --check if we can draw
@@ -46,6 +47,7 @@ function Grid:update(brush)
                     end
                 end
             end
+            self:updateCanvas()
         end
         if love.mouse.isDown(2)then
             for _, line in ipairs(self.tiles) do
@@ -55,10 +57,23 @@ function Grid:update(brush)
                     end
                 end
             end
+            self:updateCanvas()
         end
             self:adjustAmount()
     end
 end
+
+function Grid:updateCanvas()
+    love.graphics.setCanvas(self.canvas)
+    love.graphics.clear()
+        for _, line in ipairs(self.tiles) do
+        for _, tile in ipairs(line) do
+            tile:draw()
+        end
+    end
+    love.graphics.setCanvas()
+end
+
 function Grid:adjustAmount()
     if self.tilesAmount ~= self.ui.scaler.tilesAmount then
             self.tilesAmount = self.ui.scaler.tilesAmount
