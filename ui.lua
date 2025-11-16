@@ -92,6 +92,7 @@ function UI:mousepressed(mx, my, button, grid)
                         grid.tiles[y][x].color = tile
                     end
                 end
+                grid:updateCanvas()
                 --setting newPalette
                 self.palette:setColors(newPalette)
                 self.fileVizualizer.hidden = true
