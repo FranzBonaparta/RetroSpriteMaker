@@ -1,7 +1,16 @@
--- RetroSpriteMaker
--- Made by Jojopov
--- Licence : GNU GPL v3 - 2025
--- https://www.gnu.org/licenses/gpl-3.0.html
+-- RetroSpriteMaker – A minimalist, libre pixel art editor.
+-- Copyleft (ɔ) 2025 Jojopov (Franz Bonaparta)
+-- Released under the terms of the GNU General Public License, version 3 or later.
+-- See <https://www.gnu.org/licenses/> for details.
+--
+-- This program is free software: you can redistribute it and/or modify
+-- it under the terms of the GNU General Public License as published by
+-- the Free Software Foundation, either version 3 of the License, or
+-- (at your option) any later version.
+--
+-- This program is distributed in the hope that it will be useful,
+-- but WITHOUT ANY WARRANTY; without even the implied warranty of
+-- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 local Tile = require("tile")
 local UI = require("ui")
 local ui = UI()

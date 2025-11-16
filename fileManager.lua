@@ -67,8 +67,6 @@ function FileManager.saveDraw(ui, tiles)
             index = index + 1
         end
     end
-
-
     for _, line in ipairs(tiles) do
         saveString = saveString .. "{"
         for _, tile in ipairs(line) do

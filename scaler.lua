@@ -1,5 +1,10 @@
+-- This file is part of RetroSpriteMaker.
+-- RetroSpriteMaker is free software: you can redistribute it and/or modify
+-- it under the terms of the GNU General Public License as published by
+-- the Free Software Foundation, either version 3 of the License, or
+-- (at your option) any later version.
+-- See <https://www.gnu.org/licenses/>.
 local Tile=require("tile")
-
 local Scaler=Tile:extend()
 local amounts={8,16,32}
 function Scaler:new(x,y,scale)
