@@ -34,6 +34,18 @@ function Palette:setColors(newColors)
         end
     end
 end
+function Palette:getColorsByIndex(index)
+    local colorIndex=1
+    for _, line in ipairs(self.colorTiles) do
+
+        for _, color in ipairs(line) do
+            if index==colorIndex then
+                return color.color[1],color.color[2],color.color[3]
+            end
+            colorIndex=colorIndex+1
+        end
+    end
+end
 function Palette:draw()
     -- Calculation of the total size of the pallet
     local paletteWidth = #colors[1] * self.size

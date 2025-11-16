@@ -83,18 +83,22 @@ function UI:mousepressed(mx, my, button, grid)
                 --loading datas
                 local newPalette, newGrid = {}, {}
                 newGrid, newPalette = FileManager.loadSprite(name)
+                self.palette:setColors(newPalette)
                 self.scaler:setTilesAmount(#newGrid[1])
                 grid:adjustAmount()
                 grid:loadTiles()
                 --setting newColors
                 for y, line in ipairs(newGrid) do
-                    for x, tile in ipairs(line) do
-                        grid.tiles[y][x].color = tile
+                    for x, colorIndex in ipairs(line) do
+                        if colorIndex ~= 0 then
+                            local r, g, b = self.palette:getColorsByIndex(colorIndex)
+                            grid.tiles[y][x].color = { r, g, b }
+                        end
                     end
                 end
                 grid:updateCanvas()
                 --setting newPalette
-                self.palette:setColors(newPalette)
+
                 self.fileVizualizer.hidden = true
                 return
             end
